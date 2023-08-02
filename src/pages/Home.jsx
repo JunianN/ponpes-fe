@@ -11,29 +11,29 @@ import { Box, Container, HStack, Text, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 export function Home() {
-  useRole();
+  // useRole();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { error, isLoading, data: booksData } = useFetch("/books");
+  const { error, isLoading, data: booksData } = useFetch("/santri");
   const [bookOpened, setBookOpened] = useState({});
 
-  const [books, setBooks] = useState([]);
-  useEffect(() => {
-    if (!booksData?.data?.books) return;
-    setBooks(booksData.data.books.reverse());
-  }, [booksData]);
+  // const [books, setBooks] = useState([]);
+  // useEffect(() => {
+  //   if (!booksData?.data?.books) return;
+  //   setBooks(booksData.data.books.reverse());
+  // }, [booksData]);
 
   // filters
-  const [searchFilter, setSearchFilter] = useState("");
-  const [availibilityFilter, setAvailibilityFilter] = useState("ShowAll");
-  const [genreFilter, setGenreFilter] = useState("All Genres");
+  // const [searchFilter, setSearchFilter] = useState("");
+  // const [availibilityFilter, setAvailibilityFilter] = useState("ShowAll");
+  // const [genreFilter, setGenreFilter] = useState("All Genres");
 
-  const filteredBooks = useFilteredBooks(
-    books,
-    searchFilter,
-    availibilityFilter,
-    genreFilter,
-  );
+  // const filteredBooks = useFilteredBooks(
+  //   books,
+  //   searchFilter,
+  //   availibilityFilter,
+  //   genreFilter,
+  // );
 
   return (
     <>
@@ -45,31 +45,31 @@ export function Home() {
             <Text as="h1" fontSize="2xl" mb={4}>
               Need some books? Here we go...
             </Text>
-            <SearchBook
+            {/* <SearchBook
               searchValue={searchFilter}
               setSearchValue={setSearchFilter}
               availibilityValue={availibilityFilter}
               setAvailibilityValue={setAvailibilityFilter}
               genreValue={genreFilter}
               setGenreValue={setGenreFilter}
-            />
+            /> */}
             <BookList
-              error={error}
-              isLoading={isLoading}
-              books={filteredBooks}
-              onOpen={onOpen}
-              setBookOpened={setBookOpened}
+              // error={error}
+              // isLoading={isLoading}
+              // books={filteredBooks}
+              // onOpen={onOpen}
+              // setBookOpened={setBookOpened}
             />
 
-            <RenderIf when={books?.length === 0}>
+            {/* <RenderIf when={books?.length === 0}>
               <HStack spacing="4px" mt={8} w="full" justifyContent="center">
                 <Text textAlign="center">
                   No books yet here, ask admin to add books.
                 </Text>
               </HStack>
-            </RenderIf>
+            </RenderIf> */}
 
-            <RenderIf when={books?.length > 0 && filteredBooks?.length === 0}>
+            {/* <RenderIf when={books?.length > 0 && filteredBooks?.length === 0}>
               <HStack spacing="4px" mt={8} w="full" justifyContent="center">
                 <Text textAlign="center">
                   Can&apos;t find book with search query:{" "}
@@ -77,18 +77,18 @@ export function Home() {
                   <b>{availibilityFilter}</b>, and genres: <b>{genreFilter}</b>
                 </Text>
               </HStack>
-            </RenderIf>
+            </RenderIf> */}
           </Container>
         </Box>
       </DefaultLayout>
 
       <BookModal
-        isOpen={isOpen}
-        onClose={onClose}
-        bookOpened={bookOpened}
-        showActionButton
-        books={books}
-        setBooks={setBooks}
+        // isOpen={isOpen}
+        // onClose={onClose}
+        // bookOpened={bookOpened}
+        // showActionButton
+        // books={books}
+        // setBooks={setBooks}
       />
     </>
   );

@@ -84,21 +84,6 @@ export function SignIn() {
       <Button colorScheme="blue" minW="30%" onClick={signInHandler}>
         Sign In
       </Button>
-
-      <Center mt={6} mb={2}>
-        <Box borderBottom="1px" borderBottomColor="gray.300" w="60%"></Box>
-      </Center>
-
-      <Text>
-        Don&apos;t have an account?{" "}
-        <Button
-          colorScheme="blue"
-          variant="link"
-          onClick={() => navigate("/signup")}
-        >
-          Sign Up
-        </Button>
-      </Text>
     </SignInLayout>
   );
 }
