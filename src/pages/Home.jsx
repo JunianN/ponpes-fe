@@ -1,11 +1,10 @@
-import BookList from "@/components/elements/BookList";
-import BookModal from "@/components/elements/BookModal";
+import SantriList from "@/components/elements/SantriList";
 import { RenderIf } from "@/components/elements/RenderIf";
-import { SearchBook } from "@/components/elements/search";
+import { SearchSantri } from "@/components/elements/search";
 import { DefaultLayout } from "@/components/layouts/DefaultLayout";
 import { LoadingScreen } from "@/components/templates/loadingScreen/LoadingScreen";
 import { useFetch } from "@/utils/hooks/useFetch";
-import { useFilteredBooks } from "@/utils/hooks/useFilteredBooks";
+import { useFilteredSantri } from "@/utils/hooks/useFilteredSantri";
 import { useRole } from "@/utils/hooks/useRole";
 import { Box, Container, HStack, Text, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -13,83 +12,56 @@ import { useEffect, useState } from "react";
 export function Home() {
   // useRole();
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { error, isLoading, data: booksData } = useFetch("/santri");
-  const [bookOpened, setBookOpened] = useState({});
+  const { error, isLoading, data: santriData } = useFetch("/santri");
 
-  // const [books, setBooks] = useState([]);
-  // useEffect(() => {
-  //   if (!booksData?.data?.books) return;
-  //   setBooks(booksData.data.books.reverse());
-  // }, [booksData]);
+  const [santri, setSantri] = useState([]);
+  useEffect(() => {
+    if (!santriData?.data?.santri) return;
+    setSantri(santriData.data.santri.reverse());
+  }, [santriData]);
 
-  // filters
-  // const [searchFilter, setSearchFilter] = useState("");
-  // const [availibilityFilter, setAvailibilityFilter] = useState("ShowAll");
-  // const [genreFilter, setGenreFilter] = useState("All Genres");
+  const [searchFilter, setSearchFilter] = useState("");
 
-  // const filteredBooks = useFilteredBooks(
-  //   books,
-  //   searchFilter,
-  //   availibilityFilter,
-  //   genreFilter,
-  // );
-
+  const filteredSantri = useFilteredSantri(
+    santri,
+    searchFilter
+  );
+console.log(filteredSantri)
   return (
     <>
-      <LoadingScreen when={isLoading} text="Getting Books" />
+      <LoadingScreen when={isLoading} text="Loading data..." />
 
       <DefaultLayout>
         <Box bg="gray.100" w="100%">
           <Container maxWidth="8xl" py={5}>
-            <Text as="h1" fontSize="2xl" mb={4}>
-              Need some books? Here we go...
-            </Text>
-            {/* <SearchBook
+            <SearchSantri
               searchValue={searchFilter}
               setSearchValue={setSearchFilter}
-              availibilityValue={availibilityFilter}
-              setAvailibilityValue={setAvailibilityFilter}
-              genreValue={genreFilter}
-              setGenreValue={setGenreFilter}
-            /> */}
-            <BookList
-              // error={error}
-              // isLoading={isLoading}
-              // books={filteredBooks}
-              // onOpen={onOpen}
-              // setBookOpened={setBookOpened}
+            />
+            <SantriList
+              error={error}
+              isLoading={isLoading}
+              santri={filteredSantri}
             />
 
-            {/* <RenderIf when={books?.length === 0}>
+            <RenderIf when={santri?.length === 0}>
               <HStack spacing="4px" mt={8} w="full" justifyContent="center">
                 <Text textAlign="center">
-                  No books yet here, ask admin to add books.
+                  Belum ada data santri, silahkan masukkan data.
                 </Text>
               </HStack>
-            </RenderIf> */}
+            </RenderIf>
 
-            {/* <RenderIf when={books?.length > 0 && filteredBooks?.length === 0}>
+            <RenderIf when={santri?.length > 0 && filteredSantri?.length === 0}>
               <HStack spacing="4px" mt={8} w="full" justifyContent="center">
                 <Text textAlign="center">
-                  Can&apos;t find book with search query:{" "}
-                  <b>&quot;{searchFilter}&quot;</b>, avalibility:{" "}
-                  <b>{availibilityFilter}</b>, and genres: <b>{genreFilter}</b>
+                  Tidak bisa menemukan santri dengan nama: <b>&quot;{searchFilter}&quot;</b>
                 </Text>
               </HStack>
-            </RenderIf> */}
+            </RenderIf>
           </Container>
         </Box>
-      </DefaultLayout>
-
-      <BookModal
-        // isOpen={isOpen}
-        // onClose={onClose}
-        // bookOpened={bookOpened}
-        // showActionButton
-        // books={books}
-        // setBooks={setBooks}
-      />
+      </DefaultLayout>  
     </>
   );
 }

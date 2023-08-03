@@ -1,12 +1,12 @@
 import BookModal from "@/components/elements/BookModal";
 import ConfirmDialog from "@/components/elements/ConfirmDialog";
-import { SearchBook } from "@/components/elements/search";
+import { SearchSantri } from "@/components/elements/search";
 import { DefaultLayout } from "@/components/layouts/DefaultLayout";
 import { AddBookFormModal } from "@/components/templates/AddBookFormModal";
 import { EditBookFormModal } from "@/components/templates/EditBookFormModal";
 import { LoadingScreen } from "@/components/templates/loadingScreen/LoadingScreen";
 import { useFetch } from "@/utils/hooks/useFetch";
-import { useFilteredBooks } from "@/utils/hooks/useFilteredBooks";
+import { useFilteredSantri } from "@/utils/hooks/useFilteredSantri";
 import { useRole } from "@/utils/hooks/useRole";
 import { createFetcher } from "@/utils/services/fetcher";
 import {
@@ -48,7 +48,7 @@ export function SeeBooks() {
   const [availibilityFilter, setAvailibilityFilter] = useState("ShowAll");
   const [genreFilter, setGenreFilter] = useState("All Genres");
 
-  const filteredBooks = useFilteredBooks(
+  const filteredBooks = useFilteredSantri(
     books,
     searchFilter,
     availibilityFilter,
@@ -96,7 +96,7 @@ export function SeeBooks() {
             </Text>
             <HStack w="full" maxW="800px">
               <Box flex={1}>
-                <SearchBook
+                <SearchSantri
                   searchValue={searchFilter}
                   setSearchValue={setSearchFilter}
                   availibilityValue={availibilityFilter}

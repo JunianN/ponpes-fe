@@ -1,12 +1,12 @@
-import BookList from "@/components/elements/BookList";
+import SantriList from "@/components/elements/SantriList";
 import BookModal from "@/components/elements/BookModal";
 import { RenderIf } from "@/components/elements/RenderIf";
-import { SearchBook } from "@/components/elements/search";
+import { SearchSantri } from "@/components/elements/search";
 import { DefaultLayout } from "@/components/layouts/DefaultLayout";
 import { LoadingScreen } from "@/components/templates/loadingScreen/LoadingScreen";
 import UserContext from "@/contexts/userContext";
 import { useFetch } from "@/utils/hooks/useFetch";
-import { useFilteredBooks } from "@/utils/hooks/useFilteredBooks";
+import { useFilteredSantri } from "@/utils/hooks/useFilteredSantri";
 import { useRole } from "@/utils/hooks/useRole";
 import {
   Box,
@@ -43,7 +43,7 @@ export function MyBooks() {
     return books.filter((book) => book.borrowerIds.includes(user?.id));
   }, [books, user]);
 
-  const filteredBooks = useFilteredBooks(
+  const filteredBooks = useFilteredSantri(
     filteredUserBooks,
     searchFilter,
     availibilityFilter,
@@ -60,7 +60,7 @@ export function MyBooks() {
             <Text as="h1" fontSize="2xl" mb={4}>
               Hi {user?.name}, here is your borrowed books
             </Text>
-            <SearchBook
+            <SearchSantri
               searchValue={searchFilter}
               setSearchValue={setSearchFilter}
               availibilityValue={availibilityFilter}
@@ -68,7 +68,7 @@ export function MyBooks() {
               genreValue={genreFilter}
               setGenreValue={setGenreFilter}
             />
-            <BookList
+            <SantriList
               error={error}
               isLoading={isLoading}
               books={filteredBooks}
@@ -76,7 +76,7 @@ export function MyBooks() {
               setBookOpened={setBookOpened}
             >
               {" "}
-            </BookList>
+            </SantriList>
 
             <RenderIf when={filteredUserBooks?.length === 0}>
               <HStack spacing="4px" mt={8} w="full" justifyContent="center">

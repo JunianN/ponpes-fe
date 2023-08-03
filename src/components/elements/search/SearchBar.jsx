@@ -9,7 +9,7 @@ export function SearchBar({ value, setValue }) {
       </InputLeftElement>
       <Input
         type="text"
-        placeholder="Search by title, author, or publisher"
+        placeholder="Cari santri"
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
