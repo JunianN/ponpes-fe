@@ -2321,6 +2321,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^0.27.2":
+  version: 0.27.2
+  resolution: "axios@npm:0.27.2"
+  dependencies:
+    follow-redirects: ^1.14.9
+    form-data: ^4.0.0
+  checksum: 38cb7540465fe8c4102850c4368053c21683af85c5fdf0ea619f9628abbcb59415d1e22ebc8a6390d2bbc9b58a9806c874f139767389c862ec9b772235f06854
+  languageName: node
+  linkType: hard
+
 "axios@npm:^1.4.0":
   version: 1.4.0
   resolution: "axios@npm:1.4.0"
@@ -3170,7 +3180,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.15.0":
+"follow-redirects@npm:^1.14.9, follow-redirects@npm:^1.15.0":
   version: 1.15.2
   resolution: "follow-redirects@npm:1.15.2"
   peerDependenciesMeta:
@@ -3448,6 +3458,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hamming-distance@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "hamming-distance@npm:1.0.0"
+  checksum: 2cba2ec883d9ec9cd5877ff308af3ea2c87a9e131b81e0e00bf9b8525c1db46ad0be9a2c405223b417f6867ea8f8966cf687c8f07d1d7b496c6aeeb38f72e8ee
+  languageName: node
+  linkType: hard
+
 "has-bigints@npm:^1.0.1, has-bigints@npm:^1.0.2":
   version: 1.0.2
   resolution: "has-bigints@npm:1.0.2"
@@ -3583,6 +3600,20 @@ __metadata:
   version: 5.2.4
   resolution: "ignore@npm:5.2.4"
   checksum: 3d4c309c6006e2621659311783eaea7ebcd41fe4ca1d78c91c473157ad6666a57a2df790fe0d07a12300d9aac2888204d7be8d59f9aaf665b1c7fcdb432517ef
+  languageName: node
+  linkType: hard
+
+"imagekit@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "imagekit@npm:4.1.3"
+  dependencies:
+    axios: ^0.27.2
+    form-data: ^4.0.0
+    hamming-distance: ^1.0.0
+    lodash: ^4.17.15
+    tslib: ^2.4.0
+    uuid: ^8.3.2
+  checksum: abc065f1a3c1fb561dd1e32b3b1b25e875dc992460ca1aff7173831fd4c6a40ed7b5b35e4b4405f4c33fa1c3ab4e882c7022073abd4c8aea8fb41b0daf07caaf
   languageName: node
   linkType: hard
 
@@ -3957,6 +3988,13 @@ __metadata:
   version: 4.6.2
   resolution: "lodash.mergewith@npm:4.6.2"
   checksum: a6db2a9339752411f21b956908c404ec1e088e783a65c8b29e30ae5b3b6384f82517662d6f425cc97c2070b546cc2c7daaa8d33f78db7b6e9be06cd834abdeb8
+  languageName: node
+  linkType: hard
+
+"lodash@npm:^4.17.15":
+  version: 4.17.21
+  resolution: "lodash@npm:4.17.21"
+  checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
   languageName: node
   linkType: hard
 
@@ -4461,6 +4499,7 @@ __metadata:
     eslint-plugin-react-hooks: ^4.6.0
     eslint-plugin-react-refresh: ^0.4.3
     framer-motion: ^10.13.1
+    imagekit: ^4.1.3
     react: ^18.2.0
     react-dom: ^18.2.0
     react-helmet: ^6.1.0
@@ -4468,6 +4507,7 @@ __metadata:
     react-masonry-css: ^1.0.16
     react-router: ^6.14.2
     react-router-dom: ^6.14.2
+    use-file-upload: ^1.0.11
     vite: ^4.4.5
   languageName: unknown
   linkType: soft
@@ -5354,6 +5394,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"use-file-upload@npm:^1.0.11":
+  version: 1.0.11
+  resolution: "use-file-upload@npm:1.0.11"
+  peerDependencies:
+    react: ^16.0.0
+  checksum: 5766681123b45954327e39f837b632c3371cd010e431b8fe64a9cdaac9af531d541d550e4b3d841b616ed0116194eb63ef056169809dd496fbd26dce061937e7
+  languageName: node
+  linkType: hard
+
 "use-sidecar@npm:^1.1.2":
   version: 1.1.2
   resolution: "use-sidecar@npm:1.1.2"
@@ -5374,6 +5423,15 @@ __metadata:
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 474acf1146cb2701fe3b074892217553dfcf9a031280919ba1b8d651a068c9b15d863b7303cb15bd00a862b498e6cf4ad7b4a08fb134edd5a6f7641681cb54a2
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^8.3.2":
+  version: 8.3.2
+  resolution: "uuid@npm:8.3.2"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 5575a8a75c13120e2f10e6ddc801b2c7ed7d8f3c8ac22c7ed0c7b2ba6383ec0abda88c905085d630e251719e0777045ae3236f04c812184b7c765f63a70e58df
   languageName: node
   linkType: hard
 

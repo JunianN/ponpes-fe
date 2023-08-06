@@ -44,7 +44,7 @@ export const TextAreaInput = ({ title, name, placeholder, value }) => {
 export const DecimalNumberInput = ({ title, name, placeholder, value }) => {
   return (
     <BaseInput title={title}>
-      <NumberInput defaultValue={value || 1} min={1} precision={0} w="full">
+      <NumberInput defaultValue={value || 0} min={0} precision={0} w="full">
         <NumberInputField borderLeftRadius={0} name={name} />
         <NumberInputStepper>
           <NumberIncrementStepper />

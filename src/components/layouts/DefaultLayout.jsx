@@ -2,7 +2,7 @@ import Navbar from "@/components/templates/navbar/Navbar";
 import { Box } from "@chakra-ui/react";
 import { Helmet } from "react-helmet";
 
-export function DefaultLayout({ children, title = "TETI Library" }) {
+export function DefaultLayout({ children, title = "Database Ponpes" }) {
   return (
     <>
       <Helmet>

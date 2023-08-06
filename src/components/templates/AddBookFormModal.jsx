@@ -19,7 +19,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
-import { ImageUpload } from "../elements/ImageUpload";
+// import { ImageUpload } from "../elements/ImageUpload";
 import { LoadingScreen } from "./loadingScreen/LoadingScreen";
 
 export function AddBookFormModal({ isOpen, onClose, setRefreshSignal }) {
@@ -35,32 +35,28 @@ export function AddBookFormModal({ isOpen, onClose, setRefreshSignal }) {
       setIsLoading(true);
       const form = formRef.current;
 
-      const genres = form.genres.value
-        .split(",")
-        .map((genre) => genre.trim().toLowerCase());
-
       const book = {
-        title: form.title.value,
-        author: form.author.value,
-        publisher: form.publisher.value,
-        isFiction: form.isFiction.value === "Fiction",
-        synopsis: form.synopsis.value,
-        numOfBooks: Number(form.count.value),
-        imageUrl: imageUrl,
-        genres: genres,
+        nama: form.nama.value,
+        jenisKelamin: form.jenisKelamin.value,
+        ttl: form.ttl.value,
+        namaWali: form.namaWali.value,
+        alamat: form.alamat.value,
+        tahunMasuk: form.tahunMasuk.value,
+        kelas: form.kelas.value,
+        juz: Number(form.juz.value),
       };
 
       if (
-        !book.title ||
-        !book.author ||
-        !book.publisher ||
-        !book.synopsis ||
-        !book.imageUrl
+        !book.nama ||
+        !book.jenisKelamin
+        // !book.publisher ||
+        // !book.synopsis ||
+        // !book.imageUrl
       ) {
         toast({
           title: "Error",
           description:
-            "Title, Author, Publisher, Synopsis, and Image is required",
+            "Nama dan Jenis Kelamin harus diisi",
           status: "error",
           duration: 5000,
           isClosable: true,
@@ -71,12 +67,12 @@ export function AddBookFormModal({ isOpen, onClose, setRefreshSignal }) {
 
       const fetcher = createFetcher();
 
-      const res = await fetcher.post("/books", book);
+      const res = await fetcher.post("/santri", book);
       if (!res.data.success) throw new Error(res.data.error);
 
       toast({
-        title: "Success",
-        description: `${book.title} added to tetilib`,
+        title: "Sukses!",
+        description: `${book.nama} berhasil ditambahkan.`,
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -101,7 +97,7 @@ export function AddBookFormModal({ isOpen, onClose, setRefreshSignal }) {
 
   return (
     <>
-      <LoadingScreen when={isLoading} text="Adding new book" />
+      <LoadingScreen when={isLoading} text="Menambahkan data..." />
       <Modal
         onClose={onClose}
         isOpen={isOpen}
@@ -112,43 +108,44 @@ export function AddBookFormModal({ isOpen, onClose, setRefreshSignal }) {
       >
         <ModalOverlay bg="blackAlpha.50" backdropFilter="blur(2px)" />
         <ModalContent>
-          <ModalHeader>Add Book</ModalHeader>
+          <ModalHeader>Tambah Data Santri</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Stack
               spacing={4}
               direction={{ base: "column-reverse", md: "row" }}
             >
-              <Center flex={2} py={{ base: 0, md: 8 }}>
+              {/* <Center flex={2} py={{ base: 0, md: 8 }}>
                 <ImageUpload
                   setIsImageLoading={setIsImageLoading}
                   setImageUrl={setImageUrl}
                 />
-              </Center>
+              </Center> */}
               <Stack flex={3} as="form" spacing={4} ref={formRef}>
-                <TextInput title="Title" name="title" />
-                <TextAreaInput title="Synopsis" name="synopsis" />
-                <TextInput title="Author" name="author" />
-                <TextInput title="Publisher" name="publisher" />
-                <DecimalNumberInput title="Count" name="count" />
-                <TextInput title="Genres" name="genres" />
+                <TextInput title="Nama" name="nama" />
                 <SelectOptionInput
-                  title="Fiction/Non-Fiction"
-                  name="isFiction"
-                  options={["Fiction", "Non-Fiction"]}
+                  title="Jenis Kelamin"
+                  name="jenisKelamin"
+                  options={["L", "P"]}
                 />
+                <TextInput title="Tempat, Tanggal Lahir" name="ttl" />
+                <TextInput title="Nama Wali" name="namaWali" />
+                <TextInput title="Alamat" name="alamat" />
+                <TextInput title="Tahun Masuk" name="tahunMasuk" />
+                <TextInput title="Kelas" name="kelas" />
+                <DecimalNumberInput title="Perolehan Juz" name="juz"></DecimalNumberInput>
               </Stack>
             </Stack>
           </ModalBody>
 
           <ModalFooter>
             <Button
-              colorScheme="blue"
+              colorScheme="green"
               w="full"
               onClick={addBookHandler}
               disabled={isImageLoading || isLoading}
             >
-              Add this book
+              Tambah Data
             </Button>
           </ModalFooter>
         </ModalContent>

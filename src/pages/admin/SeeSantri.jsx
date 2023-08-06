@@ -28,19 +28,19 @@ import {
 import { useEffect, useState } from "react";
 import { HiPlus } from "react-icons/hi2";
 
-export function SeeBooks() {
+export function SeeSantri() {
   useRole("ADMIN");
   const toast = useToast();
 
   const [refreshSignal, setRefreshSignal] = useState(false);
 
-  const { data: booksData, isLoading } = useFetch("/books", refreshSignal);
+  const { data: booksData, isLoading } = useFetch("/santri", refreshSignal);
   // const books = useMemo(() => data?.data?.books?.reverse() || [], [data]);
 
   const [books, setBooks] = useState([]);
   useEffect(() => {
-    if (!booksData?.data?.books) return;
-    setBooks(booksData.data.books.reverse());
+    if (!booksData?.data?.santri) return;
+    setBooks(booksData.data.santri.reverse());
   }, [booksData]);
 
   // filters
@@ -54,7 +54,6 @@ export function SeeBooks() {
     availibilityFilter,
     genreFilter,
   );
-
   const [selectedBook, setSelectedBook] = useState();
 
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
@@ -85,34 +84,30 @@ export function SeeBooks() {
 
   return (
     <>
-      <LoadingScreen when={isLoading} text="Getting Books" />
-      <LoadingScreen when={isDeleteLoading} text="Deleting the book" />
+      <LoadingScreen when={isLoading} text="Mengambil data..." />
+      <LoadingScreen when={isDeleteLoading} text="Menghapus data..." />
 
       <DefaultLayout>
         <Container maxW="8xl" py={8}>
           <HStack justifyContent="space-between">
             <Text as="h1" fontSize="2xl" fontWeight="bold">
-              Books
+              Data Santri
             </Text>
             <HStack w="full" maxW="800px">
               <Box flex={1}>
                 <SearchSantri
                   searchValue={searchFilter}
                   setSearchValue={setSearchFilter}
-                  availibilityValue={availibilityFilter}
-                  setAvailibilityValue={setAvailibilityFilter}
-                  genreValue={genreFilter}
-                  setGenreValue={setGenreFilter}
                 />
               </Box>
               <Button
                 leftIcon={<HiPlus />}
-                colorScheme="blue"
+                colorScheme="green"
                 variant="solid"
                 px={8}
                 onClick={onAddBookOpen}
               >
-                Add Book
+                Tambah Santri
               </Button>
             </HStack>
           </HStack>
@@ -126,25 +121,30 @@ export function SeeBooks() {
             <Table size="sm">
               <Thead>
                 <Tr>
-                  <Th>Title</Th>
-                  <Th>Author</Th>
-                  <Th>Publisher</Th>
-                  <Th>Books Available</Th>
-                  <Th>Actions</Th>
+                  <Th>Nama</Th>
+                  <Th>Jenis Kelamin</Th>
+                  <Th>Tempat, Tanggal Lahir</Th>
+                  <Th>Nama Wali</Th>
+                  <Th>Alamat</Th>
+                  <Th>Tahun Masuk</Th>
+                  <Th>Kelas</Th>
+                  <Th>Perolehan Juz</Th>
                 </Tr>
               </Thead>
               <Tbody>
                 {filteredBooks.map((book) => (
                   <Tr key={book._id}>
-                    <Td>{book.title}</Td>
-                    <Td>{book.author}</Td>
-                    <Td>{book.publisher}</Td>
-                    <Td>
-                      {book.numOfAvailableBooks}/{book.numOfBooks}
-                    </Td>
+                    <Td>{book.nama}</Td>
+                    <Td>{book.jenisKelamin}</Td>
+                    <Td>{book.ttl}</Td>
+                    <Td>{book.namaWali}</Td>
+                    <Td>{book.alamat}</Td>
+                    <Td>{book.tahunMasuk}</Td>
+                    <Td>{book.kelas}</Td>
+                    <Td>{book.juz}</Td>
                     <Td>
                       <HStack>
-                        <Button
+                        {/* <Button
                           size="sm"
                           colorScheme="blue"
                           onClick={() => {
@@ -153,10 +153,10 @@ export function SeeBooks() {
                           }}
                         >
                           Detail
-                        </Button>
+                        </Button> */}
                         <Button
                           size="sm"
-                          colorScheme="green"
+                          colorScheme="blue"
                           onClick={() => {
                             onEditBookOpen();
                             setSelectedBook(book);
@@ -172,7 +172,7 @@ export function SeeBooks() {
                             setSelectedBook(book);
                           }}
                         >
-                          Delete
+                          Hapus
                         </Button>
                       </HStack>
                     </Td>
@@ -204,20 +204,20 @@ export function SeeBooks() {
       ></BookModal>
 
       <ConfirmDialog
-        title="Warning"
-        subtitle={`Remove ${selectedBook?.title}?`}
-        actionButtonText="Delete"
+        title="Peringatan!"
+        subtitle={`Hapus ${selectedBook?.nama}?`}
+        actionButtonText="Hapus"
         isOpen={isDeleteBookOpen}
         onClose={onDeleteBookClose}
         onActionClick={async () => {
           try {
             setIsDeleteLoading(true);
             const fetcher = createFetcher();
-            await fetcher.delete("/books/" + selectedBook._id);
+            await fetcher.delete("/santri/" + selectedBook._id);
             setRefreshSignal((s) => !s);
             toast({
-              title: "Success",
-              description: `${selectedBook.title} deleted`,
+              title: "Sukses!",
+              description: `${selectedBook.nama} berhasil dihapus`,
               status: "success",
               duration: 3000,
               isClosable: false,

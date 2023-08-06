@@ -4,11 +4,9 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
 } from '@chakra-ui/react'
 
@@ -23,7 +21,7 @@ const SantriList = ({ error, isLoading, santri }) => {
             <Tr>
               <Th>Nama</Th>
               <Th>Jenis Kelamin</Th>
-              <Th >Tempat</Th>
+              <Th >Tahun Masuk</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -31,7 +29,7 @@ const SantriList = ({ error, isLoading, santri }) => {
               <Tr key={santri._id}>
                 <Td>{santri.nama}</Td>
                 <Td>{santri.jenisKelamin}</Td>
-                <Td>25.4</Td>
+                <Td>{santri.tahunMasuk}</Td>
               </Tr>
             ))}
           </Tbody>

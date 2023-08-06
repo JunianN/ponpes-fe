@@ -5,7 +5,7 @@ import { createFetcher } from "@/utils/services/fetcher";
 import { useContext } from "react";
 import UserContext from "@/contexts/userContext";
 
-export const useRole = (role = "USER", redirectEndpointFallback = "/") => {
+export const useRole = (role = "USER", redirectEndpointFallback = "/signin") => {
   const navigate = useNavigate();
 
   const { user, setUser } = useContext(UserContext);

@@ -33,10 +33,10 @@ export default function DesktopNavbar() {
               onClick={() => navigate("/")}
             >
               <Text fontWeight="bold" pr={1} fontSize="xl">
-                TETI
+                Database
               </Text>
               <Text fontWeight="normal" pr={1} fontSize="xl">
-                LIBRARY
+                Ponpes
               </Text>
             </Button>
             <RenderIf when={user?.role === "USER"}>

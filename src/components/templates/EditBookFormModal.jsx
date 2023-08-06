@@ -19,7 +19,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
-import { ImageUpload } from "../elements/ImageUpload";
+// import { ImageUpload } from "../elements/ImageUpload";
 import { LoadingScreen } from "./loadingScreen/LoadingScreen";
 
 export function EditBookFormModal({
@@ -31,47 +31,48 @@ export function EditBookFormModal({
   const formRef = useRef();
   const toast = useToast();
 
-  const [imageUrl, setImageUrl] = useState(initialBook?.imageUrl);
+  // const [imageUrl, setImageUrl] = useState(initialBook?.imageUrl);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    // note: on first render, initialBook may be undefined
-    //       so, we need this
-    setImageUrl(initialBook?.imageUrl);
-  }, [initialBook]);
+  // useEffect(() => {
+  //   // note: on first render, initialBook may be undefined
+  //   //       so, we need this
+  //   setImageUrl(initialBook?.imageUrl);
+  // }, [initialBook]);
 
   const editBookHandler = async () => {
     try {
       setIsLoading(true);
       const form = formRef.current;
 
-      const genres = form.genres.value
-        .split(",")
-        .map((genre) => genre.trim().toLowerCase());
+      // const genres = form.genres.value
+      //   .split(",")
+      //   .map((genre) => genre.trim().toLowerCase());
 
       const book = {
-        title: form.title.value,
-        author: form.author.value,
-        publisher: form.publisher.value,
-        isFiction: form.isFiction.value === "Fiction",
-        synopsis: form.synopsis.value,
-        numOfBooks: Number(form.count.value),
-        imageUrl: imageUrl,
-        genres: genres,
+        nama: form.nama.value,
+        jenisKelamin: form.jenisKelamin.value,
+        ttl: form.ttl.value,
+        namaWali: form.namaWali.value,
+        alamat: form.alamat.value,
+        tahunMasuk: form.tahunMasuk.value,
+        kelas: form.kelas.value,
+        juz: Number(form.juz.value),
       };
 
       if (
-        !book.title ||
-        !book.author ||
-        !book.publisher ||
-        !book.synopsis ||
-        !book.imageUrl
+        !book.nama ||
+        !book.jenisKelamin
+        // !book.author ||
+        // !book.publisher ||
+        // !book.synopsis ||
+        // !book.imageUrl
       ) {
         toast({
           title: "Error",
           description:
-            "Title, Author, Publisher, Synopsis, and Image is required",
+            "Nama dan Jenis Kelamin harus diisi",
           status: "error",
           duration: 5000,
           isClosable: true,
@@ -82,12 +83,12 @@ export function EditBookFormModal({
 
       const fetcher = createFetcher();
 
-      const res = await fetcher.put("/books/" + initialBook._id, book);
+      const res = await fetcher.put("/santri/" + initialBook._id, book);
       if (!res.data.success) throw new Error(res.data.error);
 
       toast({
-        title: "Success",
-        description: `${book.title} updated`,
+        title: "Sukses!",
+        description: `${book.nama} berhasil diubah`,
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -112,7 +113,7 @@ export function EditBookFormModal({
 
   return (
     <>
-      <LoadingScreen when={isLoading} text="Saving this book" />
+      <LoadingScreen when={isLoading} text="Menyimpan data..." />
       <Modal
         onClose={onClose}
         isOpen={isOpen}
@@ -123,56 +124,61 @@ export function EditBookFormModal({
       >
         <ModalOverlay bg="blackAlpha.50" backdropFilter="blur(2px)" />
         <ModalContent>
-          <ModalHeader>Edit Book</ModalHeader>
+          <ModalHeader>Edit Data Santri</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Stack
               spacing={4}
               direction={{ base: "column-reverse", md: "row" }}
             >
-              <Center flex={2} py={{ base: 0, md: 8 }}>
+              {/* <Center flex={2} py={{ base: 0, md: 8 }}>
                 <ImageUpload
                   initialImageUrl={initialBook?.imageUrl}
                   setIsImageLoading={setIsImageLoading}
                   setImageUrl={setImageUrl}
                 />
-              </Center>
+              </Center> */}
               <Stack flex={3} as="form" spacing={4} ref={formRef}>
                 <TextInput
-                  title="Title"
-                  name="title"
-                  value={initialBook?.title}
-                />
-                <TextAreaInput
-                  title="Synopsis"
-                  name="synopsis"
-                  value={initialBook?.synopsis}
-                />
-                <TextInput
-                  title="Author"
-                  name="author"
-                  value={initialBook?.author}
-                />
-                <TextInput
-                  title="Publisher"
-                  name="publisher"
-                  value={initialBook?.publisher}
-                />
-                <DecimalNumberInput
-                  title="Count"
-                  name="count"
-                  value={initialBook?.numOfBooks}
-                />
-                <TextInput
-                  title="Genres"
-                  name="genres"
-                  value={initialBook?.genres?.join(", ")}
+                  title="Nama"
+                  name="nama"
+                  value={initialBook?.nama}
                 />
                 <SelectOptionInput
-                  title="Fiction/Non-Fiction"
-                  name="isFiction"
-                  value={initialBook?.isFiction ? "Fiction" : "Non-Fiction"}
-                  options={["Fiction", "Non-Fiction"]}
+                  title="Jenis Kelamin"
+                  name="jenisKelamin"
+                  value={initialBook?.jenisKelamin}
+                  options={["L", "P"]}
+                />
+                <TextInput
+                  title="Tempat, Tanggal Lahir"
+                  name="ttl"
+                  value={initialBook?.ttl}
+                />
+                <TextInput
+                  title="Nama Wali"
+                  name="namaWali"
+                  value={initialBook?.namaWali}
+                />
+                <TextInput
+                  title="Alamat"
+                  name="alamat"
+                  value={initialBook?.alamat}
+                />
+                <TextInput
+                  title="Tahun Masuk"
+                  name="tahunMasuk"
+                  value={initialBook?.tahunMasuk}
+                />
+                <TextInput
+                  title="Kelas"
+                  name="kelas"
+                  value={initialBook?.kelas}
+                />
+                <DecimalNumberInput
+                  title="Perolehan Juz"
+                  name="juz"
+                  value={initialBook?.juz}
                 />
               </Stack>
             </Stack>
@@ -185,7 +191,7 @@ export function EditBookFormModal({
               onClick={editBookHandler}
               disabled={isImageLoading || isLoading}
             >
-              Save Changes
+              Simpan
             </Button>
           </ModalFooter>
         </ModalContent>
