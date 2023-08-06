@@ -65,7 +65,7 @@ export function SignIn() {
         Sign In
       </Text>
       <Text fontSize="lg" fontWeight="bold">
-        Siastem Informasi Ponpes
+        Database Ponpes
       </Text>
       <Stack m={4}>
         <Input
