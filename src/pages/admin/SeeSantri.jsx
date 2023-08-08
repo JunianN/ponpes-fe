@@ -29,7 +29,7 @@ import { useEffect, useState } from "react";
 import { HiPlus } from "react-icons/hi2";
 
 export function SeeSantri() {
-  // useRole("ADMIN");
+  useRole("ADMIN");
   const toast = useToast();
 
   const [refreshSignal, setRefreshSignal] = useState(false);

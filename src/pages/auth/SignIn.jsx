@@ -19,7 +19,7 @@ export function SignIn() {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const toast = useToast();
@@ -27,7 +27,7 @@ export function SignIn() {
   const signInHandler = async () => {
     try {
       const res = await fetcher.post("/auth/signin", {
-        email: email,
+        username: username,
         password: password,
       });
 
@@ -37,15 +37,13 @@ export function SignIn() {
 
       setUser({
         id: user._id,
-        email: user.email,
-        name: user.name,
+        username: user.username,
         role: user.role,
-        borrowedBookIds: user.borrowedBookIds,
       });
 
       localStorage.setItem("accessToken", res.data.data.accessToken);
 
-      navigate(user.role === "USER" ? "/" : "/admin/books");
+      navigate("/");
     } catch (error) {
       if (error.response.status === 401) {
         toast({
@@ -60,7 +58,7 @@ export function SignIn() {
   };
 
   return (
-    <SignInLayout title="Sign In - TETI Library">
+    <SignInLayout title="Sign In - Database Ponpes">
       <Text as="h1" fontSize="3xl" fontWeight="bold">
         Sign In
       </Text>
@@ -69,9 +67,9 @@ export function SignIn() {
       </Text>
       <Stack m={4}>
         <Input
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
         <PasswordInput

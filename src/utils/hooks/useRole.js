@@ -38,17 +38,15 @@ export const useRole = (role = "USER", redirectEndpointFallback = "/signin") => 
     (async function () {
       try {
         const fetcher = createFetcher();
-        const res = await fetcher.get("/users/" + payload.id);
+        const res = await fetcher.get("/admin/" + payload.id);
         const user = res.data.data.user;
 
         redirectIfNeeded(user);
 
         setUser({
           id: user._id,
-          email: user.email,
-          name: user.name,
+          username: user.username,
           role: user.role,
-          borrowedBookIds: user.borrowedBookIds,
         });
       } catch (error) {
         // setUser(null);
