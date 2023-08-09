@@ -23,7 +23,7 @@ export default function DesktopNavbar() {
   const navigate = useNavigate();
 
   return (
-    <Box as="header" bg="blue.500" textColor="white">
+    <Box as="header" bg="green.500" textColor="white">
       <Container as="nav" maxW="8xl">
         <HStack justifyContent="space-between" py={4} minH="60px">
           <Box>
