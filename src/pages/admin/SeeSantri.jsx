@@ -107,7 +107,7 @@ export function SeeSantri() {
                 px={8}
                 onClick={onAddBookOpen}
               >
-                Tambah Santri
+                Tambah
               </Button>
             </HStack>
           </HStack>
@@ -117,6 +117,8 @@ export function SeeSantri() {
             p={4}
             borderRadius="xl"
             my={4}
+            maxHeight="757px"  
+            overflowY="auto"
           >
             <Table size="sm">
               <Thead>
