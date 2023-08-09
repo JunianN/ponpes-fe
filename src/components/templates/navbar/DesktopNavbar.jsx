@@ -39,7 +39,7 @@ export default function DesktopNavbar() {
                 Ponpes
               </Text>
             </Button>
-            <RenderIf when={user?.role === "USER"}>
+            {/* <RenderIf when={user?.role === "USER"}>
               <Button
                 colorScheme="white"
                 variant="link"
@@ -50,7 +50,7 @@ export default function DesktopNavbar() {
               >
                 My Books
               </Button>
-            </RenderIf>
+            </RenderIf> */}
             <RenderIf when={user?.role === "ADMIN"}>
               <Button
                 colorScheme="white"
@@ -58,9 +58,9 @@ export default function DesktopNavbar() {
                 p={4}
                 py={1}
                 display={{ base: "none", md: "inline-block" }}
-                onClick={() => navigate("/admin/books")}
+                onClick={() => navigate("/")}
               >
-                Manage Books
+                Data Santri
               </Button>
             </RenderIf>
           </Box>
@@ -83,7 +83,7 @@ export default function DesktopNavbar() {
               <Menu>
                 <MenuButton>
                   <HStack h={6}>
-                    <span>{user?.email}</span>
+                    <span>{user?.username}</span>
                     <HiOutlineUserCircle
                       style={{ width: "100%", height: "100%" }}
                     />
