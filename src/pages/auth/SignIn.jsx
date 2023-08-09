@@ -47,7 +47,16 @@ export function SignIn() {
     } catch (error) {
       if (error.response.status === 401) {
         toast({
-          title: "Wrong email or password",
+          title: "Username atau password salah",
+          status: "error",
+          isClosable: true,
+          // position: "top",
+          duration: 5000,
+        });
+      }
+      if (error.response.status === 400) {
+        toast({
+          title: "Masukkan username dan password",
           status: "error",
           isClosable: true,
           // position: "top",
@@ -79,7 +88,7 @@ export function SignIn() {
           required
         />
       </Stack>
-      <Button colorScheme="blue" minW="30%" onClick={signInHandler}>
+      <Button colorScheme="green" minW="30%" onClick={signInHandler}>
         Sign In
       </Button>
     </SignInLayout>
