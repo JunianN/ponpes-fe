@@ -23,7 +23,7 @@ export default function MobileNavbar() {
   return (
     <Box
       as="header"
-      bg="blue.500"
+      bg="green.500"
       textColor="white"
       pos="sticky"
       top={0}
@@ -145,7 +145,7 @@ export default function MobileNavbar() {
 
             <RenderIf when={!user}>
               <Button
-                colorScheme="blue"
+                colorScheme="green"
                 variant="solid"
                 p={4}
                 mt={2}
