@@ -44,7 +44,7 @@ export default function MobileNavbar() {
                 Ponpes
               </Text>
             </Button>
-            <RenderIf when={user?.role === "USER"}>
+            {/* <RenderIf when={user?.role === "USER"}>
               <Button
                 colorScheme="white"
                 variant="link"
@@ -61,12 +61,12 @@ export default function MobileNavbar() {
                 variant="link"
                 p={4}
                 py={1}
-                onClick={() => navigate("/admin/books")}
+                onClick={() => navigate("/")}
               >
-                Manage Books
+                Data Santri
               </Button>
-            </RenderIf>
-          </Box>
+            </RenderIf> */}
+          </Box>  
 
           <Box w={6} h={6}>
             <HamburgerIcon
@@ -110,14 +110,14 @@ export default function MobileNavbar() {
               onClick={() => navigate("/")}
             >
               <Text fontWeight="bold" pr={1} fontSize="xl">
-                TETI
+                Database
               </Text>
               <Text fontWeight="normal" pr={1} fontSize="xl">
-                LIBRARY
+                Ponpes
               </Text>
             </Button>
 
-            <RenderIf when={user?.role === "USER"}>
+            {/* <RenderIf when={user?.role === "USER"}>
               <Button
                 colorScheme="white"
                 variant="link"
@@ -126,22 +126,22 @@ export default function MobileNavbar() {
               >
                 My Books
               </Button>
-            </RenderIf>
+            </RenderIf> */}
 
             <RenderIf when={user?.role === "ADMIN"}>
               <Button
                 colorScheme="white"
                 variant="link"
                 p={4}
-                onClick={() => navigate("/admin/books")}
+                onClick={() => navigate("/")}
               >
-                Manage Books
+                Data Santri
               </Button>
             </RenderIf>
 
             <Box flex={1}></Box>
 
-            <Text>{user?.email}</Text>
+            <Text>{user?.username}</Text>
 
             <RenderIf when={!user}>
               <Button
