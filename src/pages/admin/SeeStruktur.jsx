@@ -2,8 +2,8 @@ import BookModal from "@/components/elements/BookModal";
 import ConfirmDialog from "@/components/elements/ConfirmDialog";
 import { SearchSantri } from "@/components/elements/search";
 import { DefaultLayout } from "@/components/layouts/DefaultLayout";
-import { AddBookFormModal } from "@/components/templates/AddBookFormModal";
-import { EditBookFormModal } from "@/components/templates/EditBookFormModal";
+import { AddStrukturFormModal } from "@/components/templates/AddStrukturFormModal";
+import { EditStrukturFormModal } from "@/components/templates/EditStrukturFormModal";
 import { LoadingScreen } from "@/components/templates/loadingScreen/LoadingScreen";
 import { useFetch } from "@/utils/hooks/useFetch";
 import { useFilteredSantri } from "@/utils/hooks/useFilteredSantri";
@@ -34,13 +34,13 @@ export function SeeStruktur() {
 
   const [refreshSignal, setRefreshSignal] = useState(false);
 
-  const { data: booksData, isLoading } = useFetch("/santri", refreshSignal);
+  const { data: booksData, isLoading } = useFetch("/struktur", refreshSignal);
   // const books = useMemo(() => data?.data?.books?.reverse() || [], [data]);
 
   const [books, setBooks] = useState([]);
   useEffect(() => {
-    if (!booksData?.data?.santri) return;
-    setBooks(booksData.data.santri.reverse());
+    if (!booksData?.data?.struktur) return;
+    setBooks(booksData.data.struktur.reverse());
   }, [booksData]);
 
   // filters
@@ -91,7 +91,7 @@ export function SeeStruktur() {
         <Container maxW="8xl" py={8}>
           <HStack justifyContent="space-between">
             <Text as="h1" fontSize="2xl" fontWeight="bold">
-              Data Santri
+              Data Struktur Kepengurusan
             </Text>
             <HStack w="full" maxW="800px">
               <Box flex={1}>
@@ -125,12 +125,8 @@ export function SeeStruktur() {
                 <Tr>
                   <Th>Nama</Th>
                   <Th>Jenis Kelamin</Th>
-                  <Th>Tempat, Tanggal Lahir</Th>
-                  <Th>Nama Wali</Th>
                   <Th>Alamat</Th>
-                  <Th>Tahun Masuk</Th>
-                  <Th>Kelas</Th>
-                  <Th>Perolehan Juz</Th>
+                  <Th>Jabatan</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -138,12 +134,8 @@ export function SeeStruktur() {
                   <Tr key={book._id}>
                     <Td>{book.nama}</Td>
                     <Td>{book.jenisKelamin}</Td>
-                    <Td>{book.ttl}</Td>
-                    <Td>{book.namaWali}</Td>
                     <Td>{book.alamat}</Td>
-                    <Td>{book.tahunMasuk}</Td>
-                    <Td>{book.kelas}</Td>
-                    <Td>{book.juz}</Td>
+                    <Td>{book.jabatan}</Td>
                     <Td>
                       <HStack>
                         {/* <Button
@@ -186,13 +178,13 @@ export function SeeStruktur() {
         </Container>
       </DefaultLayout>
 
-      <AddBookFormModal
+      <AddStrukturFormModal
         isOpen={isAddBookOpen}
         onClose={onAddBookClose}
         setRefreshSignal={setRefreshSignal}
       />
 
-      <EditBookFormModal
+      <EditStrukturFormModal
         isOpen={isEditBookOpen}
         onClose={onEditBookClose}
         setRefreshSignal={setRefreshSignal}
@@ -215,7 +207,7 @@ export function SeeStruktur() {
           try {
             setIsDeleteLoading(true);
             const fetcher = createFetcher();
-            await fetcher.delete("/santri/" + selectedBook._id);
+            await fetcher.delete("/struktur/" + selectedBook._id);
             setRefreshSignal((s) => !s);
             toast({
               title: "Sukses!",
