@@ -29,7 +29,7 @@ const SantriList = ({ error, isLoading, santri }) => {
               <Tr key={santri._id}>
                 <Td>{santri.nama}</Td>
                 <Td>{santri.jenisKelamin}</Td>
-                <Td>{santri.tahunMasuk}</Td>
+                <Td>{santri.tahunMasuk  }</Td>
               </Tr>
             ))}
           </Tbody>
