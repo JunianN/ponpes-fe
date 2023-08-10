@@ -62,6 +62,16 @@ export default function DesktopNavbar() {
               >
                 Data Santri
               </Button>
+              <Button
+                colorScheme="white"
+                variant="link"
+                p={4}
+                py={1}
+                display={{ base: "none", md: "inline-block" }}
+                onClick={() => navigate("/sarpras")}
+              >
+                Data Sarpras
+              </Button>
             </RenderIf>
           </Box>
 
