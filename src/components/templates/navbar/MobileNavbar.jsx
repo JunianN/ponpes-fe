@@ -137,6 +137,16 @@ export default function MobileNavbar() {
               >
                 Data Santri
               </Button>
+              <Button
+                colorScheme="white"
+                variant="link"
+                p={4}
+                py={1}
+                display={{ base: "none", md: "inline-block" }}
+                onClick={() => navigate("/sarpras")}
+              >
+                Data Sarpras
+              </Button>
             </RenderIf>
 
             <Box flex={1}></Box>
