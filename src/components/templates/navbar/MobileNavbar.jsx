@@ -135,17 +135,31 @@ export default function MobileNavbar() {
                 p={4}
                 onClick={() => navigate("/")}
               >
-                Data Santri
+                Santri
               </Button>
               <Button
                 colorScheme="white"
                 variant="link"
                 p={4}
-                py={1}
-                display={{ base: "none", md: "inline-block" }}
+                onClick={() => navigate("/ustaz")}
+              >
+                Ustaz
+              </Button>
+              <Button
+                colorScheme="white"
+                variant="link"
+                p={4}
+                onClick={() => navigate("/struktur")}
+              >
+                Struktur Kepengurusan
+              </Button>
+              <Button
+                colorScheme="white"
+                variant="link"
+                p={4}
                 onClick={() => navigate("/sarpras")}
               >
-                Data Sarpras
+                Sarpras
               </Button>
             </RenderIf>
 
