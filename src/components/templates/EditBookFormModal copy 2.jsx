@@ -1,0 +1,201 @@
+import {
+  DecimalNumberInput,
+  SelectOptionInput,
+  TextAreaInput,
+  TextInput,
+} from "@/components/elements/Input";
+import { createFetcher } from "@/utils/services/fetcher";
+import {
+  Button,
+  Center,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Stack,
+  useToast,
+} from "@chakra-ui/react";
+import { useEffect, useRef, useState } from "react";
+// import { ImageUpload } from "../elements/ImageUpload";
+import { LoadingScreen } from "./loadingScreen/LoadingScreen";
+
+export function EditBookFormModal({
+  initialBook,
+  isOpen,
+  onClose,
+  setRefreshSignal,
+}) {
+  const formRef = useRef();
+  const toast = useToast();
+
+  // const [imageUrl, setImageUrl] = useState(initialBook?.imageUrl);
+  const [isImageLoading, setIsImageLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // useEffect(() => {
+  //   // note: on first render, initialBook may be undefined
+  //   //       so, we need this
+  //   setImageUrl(initialBook?.imageUrl);
+  // }, [initialBook]);
+
+  const editBookHandler = async () => {
+    try {
+      setIsLoading(true);
+      const form = formRef.current;
+
+      // const genres = form.genres.value
+      //   .split(",")
+      //   .map((genre) => genre.trim().toLowerCase());
+
+      const book = {
+        nama: form.nama.value,
+        jenisKelamin: form.jenisKelamin.value,
+        ttl: form.ttl.value,
+        namaWali: form.namaWali.value,
+        alamat: form.alamat.value,
+        tahunMasuk: form.tahunMasuk.value,
+        kelas: form.kelas.value,
+        juz: Number(form.juz.value),
+      };
+
+      if (
+        !book.nama ||
+        !book.jenisKelamin
+        // !book.author ||
+        // !book.publisher ||
+        // !book.synopsis ||
+        // !book.imageUrl
+      ) {
+        toast({
+          title: "Error",
+          description:
+            "Nama dan Jenis Kelamin harus diisi",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+
+        return;
+      }
+
+      const fetcher = createFetcher();
+
+      const res = await fetcher.put("/santri/" + initialBook._id, book);
+      if (!res.data.success) throw new Error(res.data.error);
+
+      toast({
+        title: "Sukses!",
+        description: `${book.nama} berhasil diubah`,
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+
+      setRefreshSignal((s) => !s);
+
+      onClose();
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Error",
+        description: "Something happened",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <LoadingScreen when={isLoading} text="Menyimpan data..." />
+      <Modal
+        onClose={onClose}
+        isOpen={isOpen}
+        isCentered
+        size="4xl"
+        scrollBehavior="inside"
+        closeOnOverlayClick={false}
+      >
+        <ModalOverlay bg="blackAlpha.50" backdropFilter="blur(2px)" />
+        <ModalContent>
+          <ModalHeader>Edit Data Santri</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Stack
+              spacing={4}
+              direction={{ base: "column-reverse", md: "row" }}
+            >
+              {/* <Center flex={2} py={{ base: 0, md: 8 }}>
+                <ImageUpload
+                  initialImageUrl={initialBook?.imageUrl}
+                  setIsImageLoading={setIsImageLoading}
+                  setImageUrl={setImageUrl}
+                />
+              </Center> */}
+              <Stack flex={3} as="form" spacing={4} ref={formRef}>
+                <TextInput
+                  title="Nama"
+                  name="nama"
+                  value={initialBook?.nama}
+                />
+                <SelectOptionInput
+                  title="Jenis Kelamin"
+                  name="jenisKelamin"
+                  value={initialBook?.jenisKelamin}
+                  options={["L", "P"]}
+                />
+                <TextInput
+                  title="Tempat, Tanggal Lahir"
+                  name="ttl"
+                  value={initialBook?.ttl}
+                />
+                <TextInput
+                  title="Nama Wali"
+                  name="namaWali"
+                  value={initialBook?.namaWali}
+                />
+                <TextInput
+                  title="Alamat"
+                  name="alamat"
+                  value={initialBook?.alamat}
+                />
+                <TextInput
+                  title="Tahun Masuk"
+                  name="tahunMasuk"
+                  value={initialBook?.tahunMasuk}
+                />
+                <TextInput
+                  title="Kelas"
+                  name="kelas"
+                  value={initialBook?.kelas}
+                />
+                <DecimalNumberInput
+                  title="Perolehan Juz"
+                  name="juz"
+                  value={initialBook?.juz}
+                />
+              </Stack>
+            </Stack>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              colorScheme="blue"
+              w="full"
+              onClick={editBookHandler}
+              disabled={isImageLoading || isLoading}
+            >
+              Simpan
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}
